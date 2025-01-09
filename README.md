@@ -10,7 +10,7 @@ To try it out:
 
 Once in PIE, you'll see this widget at the top left of the viewport:
 
-[![Control Widget](./blob/main/Images/StartStopWidget.png)](./blob/main/Images/StartStopWidget.png)
+[![Control Widget](./Images/StartStopWidget.png)](./Images/StartStopWidget.png)
 
 You can change the number of threads to whatever you want and click the `Start` button to spawn the threads.
 
@@ -29,8 +29,8 @@ It only interfaces with the `AXistPlayerController` C++ class, which is what doe
 
 Source:
 &#91;
-[cpp](./blob/main/Source/ThreadTest/RunnableNonsense.cpp) |
-[h](./blob/main/Source/ThreadTest/RunnableNonsense.h)
+[cpp](./Source/ThreadTest/RunnableNonsense.cpp) |
+[h](./Source/ThreadTest/RunnableNonsense.h)
 &#93;
 
 This is the actual `FRunnable` thread class, the central idea explored in this project.
@@ -39,8 +39,8 @@ This is the actual `FRunnable` thread class, the central idea explored in this p
 
 Source:
 &#91;
-[cpp](./blob/main/Source/ThreadTest/XistPlayerController.cpp) |
-[h](./blob/main/Source/ThreadTest/XistPlayerController.h)
+[cpp](./Source/ThreadTest/XistPlayerController.cpp) |
+[h](./Source/ThreadTest/XistPlayerController.h)
 &#93;
 
 The Player Controller is what actually manages the threads in this project.
@@ -66,7 +66,7 @@ You can ignore most of it, except for these interesting methods:
 
 ## Widget BP
 
-[![Widget BP](./blob/main/Images/WidgetBP.png)](./blob/main/Images/WidgetBP.png)
+[![Widget BP](./Images/WidgetBP.png)](./Images/WidgetBP.png)
 
 The widget BP is super simple, all it does is call the above methods
 in the `AXistPlayerController`.
