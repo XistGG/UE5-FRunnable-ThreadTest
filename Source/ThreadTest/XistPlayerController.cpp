@@ -70,6 +70,13 @@ void AXistPlayerController::BeginPlay()
 
 void AXistPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+	// Calling this before we explicitly delete all the NonsenseThreads below helps to ensure
+	// the maximum time for looping thru all the deletes is ~ 2.5s (the max time any given
+	// thread spends doing its Work).  Without this, the worst case scenario is every single
+	// thread just started a 2.5s Work operation right before we tried to delete it, so it
+	// can block for considerably longer.
+	StopNonsense();  // instruct all threads to stop so we can clean them up faster
+
 	// This blocks the Game Thread for a while when there are a lot of threads running
 	for (auto& Tuple : NonsenseThreads)
 	{
