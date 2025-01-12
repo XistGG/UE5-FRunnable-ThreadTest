@@ -14,7 +14,7 @@ FRunnableNonsense::FRunnableNonsense()
 
 FRunnableNonsense::~FRunnableNonsense()
 {
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s destruction started"), GFrameNumber, *GetName());
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s destruction started"), GFrameNumber, *GetName());
 
 	if (Thread != nullptr)
 	{
@@ -24,7 +24,7 @@ FRunnableNonsense::~FRunnableNonsense()
 		delete Thread;
 	}
 
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s destruction finished"), GFrameNumber, *GetName());
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s destruction finished"), GFrameNumber, *GetName());
 }
 
 void FRunnableNonsense::Start()
@@ -35,7 +35,7 @@ void FRunnableNonsense::Start()
 	Id = 1 + ThreadsCreated.fetch_add(1);  // never use value 0, so always add 1
 	ThreadName = FString::Printf(TEXT("%s[%d]"), *ThreadNamePrefix.ToString(), Id);
 
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s starting"), GFrameNumber, *GetName());
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s starting"), GFrameNumber, *GetName());
 	Thread = FRunnableThread::Create(this, *GetName());
 }
 
@@ -54,7 +54,7 @@ uint32 FRunnableNonsense::Run()
 	// This method is called automatically after FRunnableThread::Create(),
 	// assuming this->Init() returned true.
 
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s started running"), GFrameNumber, *GetName());
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s started running"), GFrameNumber, *GetName());
 
 	bool bContinueWorking {true};
 	while (bShouldRun && bContinueWorking)
@@ -63,7 +63,7 @@ uint32 FRunnableNonsense::Run()
 		FPlatformProcess::Sleep(SleepInterval);
 	}
 
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s stopped running"), GFrameNumber, *GetName());
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s stopped running"), GFrameNumber, *GetName());
 	return 0;
 }
 
@@ -74,7 +74,7 @@ void FRunnableNonsense::Stop()
 	// You can also call this manually if/when you want to abort a thread before it has
 	// completed all the work it wants to do.
 
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s scheduled to stop"), GFrameNumber, *GetName());
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s scheduled to stop"), GFrameNumber, *GetName());
 
 	bShouldRun = false;
 }
@@ -84,7 +84,7 @@ void FRunnableNonsense::Exit()
 	// This method is called automatically by FRunnableThread after this->Run() returns.
 	// Use this time to clean up any resources the thread has allocated.
 
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s exiting"), GFrameNumber, *GetName());
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s exiting"), GFrameNumber, *GetName());
 
 	// ... Clean up after the thread here ...
 
@@ -94,7 +94,7 @@ void FRunnableNonsense::Exit()
 bool FRunnableNonsense::Work()
 {
 	const float WorkTime = FMath::RandRange(0.5f, 2.f);
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s working for %.2f sec"), GFrameNumber, *GetName(), WorkTime);
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s working for %.2f sec"), GFrameNumber, *GetName(), WorkTime);
 
 	FPlatformProcess::Sleep(WorkTime);
 
