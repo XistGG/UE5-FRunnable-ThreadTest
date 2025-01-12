@@ -44,9 +44,16 @@ bool FRunnableNonsense::Init()
 	// This method is automatically executed after FRunnableThread::Create()
 	// If this returns false, the thread will immediately abort.
 
-	UE_LOG(LogXist, Log, TEXT("Frame=%llu %s initialized"), GFrameNumber, *GetName());
+	const bool bInitialized = FMath::RandBool();
 
-	return true;
+	UE_LOG(LogXist, Log, TEXT("Frame=%lu %s initialize success=%d"), GFrameNumber, *GetName(), (int)bInitialized);
+	if (!bInitialized)
+	{
+		UE_LOG(LogXist, Log, TEXT("Notice: %s is simulating an initialization failure, will exit immediately"), *GetName());
+	}
+
+	bHasExited = !bInitialized;  // True when not initialized (immediate cleanup is possible); else False
+	return bInitialized;
 }
 
 uint32 FRunnableNonsense::Run()
